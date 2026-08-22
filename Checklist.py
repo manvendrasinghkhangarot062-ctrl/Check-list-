@@ -1,4 +1,22 @@
 import streamlit as st
+import json
+import os
+
+FILE = "progress.json"
+
+if os.path.exists(FILE):
+    with open(FILE, "r") as f:
+        progress = json.load(f)
+else:
+    progress = {}
+
+def checkbox(label):
+    checked = st.checkbox(label, value=progress.get(label, False))
+    progress[label] = checked
+    with open(FILE, "w") as f:
+        json.dump(progress, f)
+
+        
 st.title("QA learning roadmap tracking")
 
 st.header("python")
@@ -44,6 +62,16 @@ st.checkbox("selenium")
 st.checkbox("playwright")
 st.checkbox("locators ")
 st.checkbox("automation project")
+
+st.header("API testing and other tools ")
+
+st.checkbox("GitHub basics")
+st.checkbox("Streamlit basics")
+st.checkbox("API testing basics")
+st.checkbox("Postman")
+st.checkbox("test scenarios")
+st.checkbox("reproduction steps")
+
 
 st.success("keep learning daily")
 
